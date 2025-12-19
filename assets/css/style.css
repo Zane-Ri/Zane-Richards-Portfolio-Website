@@ -1,0 +1,38 @@
+[
+  {
+    "id": "fpga-pong",
+    "title": "FPGA Pong (VGA/HDMI)",
+    "subtitle": "640×480 video pipeline + game logic on Xilinx",
+    "tag": "FPGA",
+    "tags": ["FPGA", "Verilog", "Video"],
+    "summary": "Built a raster-scan video controller and a simple Pong game with a clean timing core and input handling.",
+    "description": "This project implements a 640×480@60Hz timing generator, pixel pipeline, and game logic (ball physics, paddles, score). Includes constraints, timing notes, and a short bring-up checklist.",
+    "tech": ["Verilog/SystemVerilog", "Xilinx Vivado", "Video timing (VGA/HDMI)", "Constraints / timing debug"],
+    "coverImage": "assets/img/projects/fpga-pong-1.png",
+    "images": [
+      "assets/img/projects/fpga-pong-1.png",
+      "assets/img/projects/fpga-pong-2.png"
+    ],
+    "repo": "https://github.com/YOUR_HANDLE/fpga-pong",
+    "files": [
+      { "label": "Report (PDF)", "href": "assets/files/fpga-pong-report.pdf" },
+      { "label": "Code (ZIP)", "href": "assets/files/fpga-pong-code.zip" }
+    ]
+  },
+  {
+    "id": "pcb-power",
+    "title": "USB-C Power Path Board",
+    "subtitle": "Compact power + protection for embedded bring-up",
+    "tag": "PCB",
+    "tags": ["PCB", "Power", "Bring-up"],
+    "summary": "Designed a small board for safe power injection and measurement during prototyping.",
+    "description": "A practical board for powering prototypes: reverse protection, current sense, test points, and clean layout practices. Includes schematic PDF and BOM.",
+    "tech": ["PCB layout", "Power electronics basics", "Test points & bring-up workflow"],
+    "coverImage": "assets/img/projects/fpga-pong-1.png",
+    "images": [],
+    "repo": "",
+    "files": [
+      { "label": "Schematic (PDF)", "href": "assets/files/fpga-pong-report.pdf" }
+    ]
+  }
+]
