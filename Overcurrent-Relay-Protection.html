@@ -6,62 +6,162 @@
 -->
 <html>
 	<head>
-		<title>Overcurrent Relay Protection</title>
+		<title>Overcurrent Relay Protection | Zane Richards</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
+
 	<body class="is-preload">
 
 		<!-- Wrapper -->
-			<div id="wrapper">
+		<div id="wrapper">
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">Massively</a>
+			<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="logo">Portfolio</a>
+			</header>
+
+			<!-- Nav -->
+			<nav id="nav">
+				<ul class="links">
+					<li><a href="index.html">Overview</a></li>
+					<li><a href="H19R2x-Hardware.html">2.5A Sensored BLDC</a></li>
+					<li class="active"><a href="Overcurrent-Relay-Protection.html">Overcurrent Relay Protection</a></li>
+					<li><a href="index.html">Coming soon</a></li>
+					<li><a href="index.html">Coming soon</a></li>
+					<li><a href="index.html">Coming soon</a></li>
+					<li><a href="elements.html">Elements Reference</a></li>
+				</ul>
+				<ul class="icons">
+					<li><a href="https://github.com/Zane-Ri" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+				</ul>
+			</nav>
+
+			<!-- Main -->
+			<div id="main">
+
+				<!-- Post -->
+				<section class="post">
+
+					<header class="major">
+						<span class="date">Dec 2025</span>
+						<h1>Overcurrent Relay Protection</h1>
+						<p>
+							Built a MATLAB-based overcurrent relay simulation for a 13.8 kV distribution feeder, modeling
+							three common fault types (3ϕ, line-line, and single-line-to-ground) and visualizing relay response
+							with IEC standard inverse-time TCC curves plus an instantaneous trip element.
+						</p>
 					</header>
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul class="links">
-							<li class="active"><a href="index.html">This is Massively</a></li>
-							<li><a href="generic.html">Generic Page</a></li>
-							<li><a href="generic 2.html">Generic 2</a></li>
-							<li><a href="generic 3.html">Generic 3</a></li>
-							<li><a href="generic 4.html">Generic 4</a></li>
-							<li><a href="generic 5.html">Generic 5</a></li>
-							<li><a href="elements.html">Elements Reference</a></li>
+					<!-- HERO IMAGE (Use your best plot or a system diagram) -->
+					<span class="image main">
+						<img src="images/pic02.png" alt="TCC curve for overcurrent relay with fault operating points" />
+					</span>
+					<p><em>Figure 0.</em> Time-current characteristic (TCC) with fault operating points and instantaneous region.</p>
+
+					<!-- QUICK SPECS -->
+					<div class="box">
+						<h2>Quick Specs</h2>
+						<ul class="alt">
+							<li><strong>System:</strong> 13.8 kV distribution feeder (simplified source + line impedance model)</li>
+							<li><strong>Fault Types Simulated:</strong> 3-phase, line-to-line (LL), single-line-to-ground (SLG)</li>
+							<li><strong>CT Ratio:</strong> 300:5 (primary-to-secondary scaling)</li>
+							<li><strong>Relay Curve:</strong> IEC standard inverse-time characteristic</li>
+							<li><strong>Settings (Secondary):</strong> Pickup Ip = 4.5 A, Instantaneous Iinst = 55 A, TMS = 0.1</li>
+							<li><strong>Outputs:</strong> Fault currents (primary + secondary), trip time per fault, and TCC plot</li>
 						</ul>
-						<ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
-
-				<!-- Main -->
-					<div id="main">
-
-						<!-- Post -->
-							<section class="post">
-								<header class="major">
-									<span class="date">April 25, 2017</span>
-									<h1>Overcurrent Relay Protection</h1>
-									<p>Intro</p>
-								</header>
-								<div class="image main"><img src="images/pic01.jpg" alt="" /></div>
-								<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur sapien risus, commodo eget turpis at, elementum convallis enim turpis, lorem ipsum dolor sit amet nullam.</p>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus. Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum.</p>
-							</section>
-
 					</div>
 
-				<!-- Footer -->
+					<h2>Project Overview</h2>
+					<p>
+						The goal of this project was to model how an overcurrent relay makes trip decisions across a range of fault
+						severities. The simulation calculates fault current at the feeder end, converts primary current to relay secondary
+						current using a current transformer (CT), then computes trip time using an IEC inverse-time element with a separate
+						instantaneous trip threshold. Finally, it plots an IEC TCC curve and overlays the operating points for each fault type.
+					</p>
+
+					<!-- OPTIONAL IMAGE PLACEHOLDER: feeder diagram -->
+					<h2>System Model</h2>
+					<p>
+						The feeder is represented using a simple series impedance model (source impedance + line impedance). This is a clean
+						starting point for protection studies because it makes fault current behavior easy to interpret and directly ties relay
+						operation to system parameters.
+					</p>
+
+					<h2>Fault Current Calculation</h2>
+					<p>
+						Three-phase fault current is computed from the feeder’s per-phase voltage divided by the total impedance magnitude.
+						Line-to-line and SLG faults are modeled as scaled fractions of the 3ϕ fault current to compare relay behavior across
+						different fault magnitudes (LL &lt; 3ϕ, SLG lowest).
+					</p>
+
+					<div class="box">
+						<h3>What the MATLAB script computes</h3>
+						<ul>
+							<li><strong>3ϕ fault:</strong> largest current → fastest clearing (often instantaneous)</li>
+							<li><strong>LL fault:</strong> medium current → inverse-time trip (short delay)</li>
+							<li><strong>SLG fault:</strong> smallest current → inverse-time trip (longer delay, still finite)</li>
+						</ul>
+					</div>
+
+					<h2>CT Scaling and Relay Settings</h2>
+					<p>
+						A 300:5 CT converts primary fault current into a relay-measurable secondary current. Relay logic is evaluated on the
+						secondary side with a time-overcurrent pickup (Ip) and an instantaneous pickup (Iinst). This mirrors how real relays
+						operate: below pickup the relay should not trip, between pickup and instantaneous it follows the inverse curve, and above
+						instantaneous it trips with negligible delay.
+					</p>
+
+
+					<h2>IEC Inverse-Time Curve and TCC Plot</h2>
+					<p>
+						The IEC inverse-time characteristic is plotted as a smooth TCC curve versus relay secondary current, and the fault
+						currents are drawn as vertical markers on the same plot. This makes it immediately obvious which faults fall into the
+						inverse-time region versus the instantaneous trip region.
+					</p>
+
+					<span class="image fit">
+						<img src="images/pic02.png" alt="TCC curve plot showing IEC inverse curve, fault markers, and instantaneous region" />
+					</span>
+					<p><em>Figure 1.</em> TCC curve with fault operating points and instantaneous pickup region.</p>
+
+					<h2>Results and Interpretation</h2>
+					<p>
+						The results follow expected protection behavior: severe faults clear immediately, while smaller faults incur an intentional
+						inverse-time delay to support selectivity/coordination. The trip-time trend is driven by the multiple-of-pickup value
+						(M = Isec / Ip): higher multiples yield shorter operating times, balancing fast equipment protection with coordination goals.
+					</p>
+
+					<div class="box">
+						<h3>Why this matters</h3>
+						<ul>
+							<li><strong>Speed when it counts:</strong> high fault currents are cleared rapidly to limit damage.</li>
+							<li><strong>Coordination support:</strong> lower fault currents trip slower, allowing upstream/downstream devices to coordinate.</li>
+							<li><strong>Practical scaling:</strong> CT modeling ensures the relay “sees” realistic secondary current values.</li>
+						</ul>
+					</div>
+
+					<h2>Limitations and Next Steps</h2>
+					<p>
+						This model focuses on steady-state fault currents and a single protective device to highlight core concepts (CT scaling,
+						TCC curves, and trip logic). Natural extensions would include more rigorous fault modeling (sequence networks), transient
+						behavior and CT saturation, and full coordination studies with upstream/downstream devices.
+					</p>
+
+
+					<hr />
+
+
+				</section>
+
+			</div>
+
+			<!-- Footer -->
 					<footer id="footer">
 						<section>
-							<form method="post" action="#">
+							<!-- <form method="post" action="#">
 								<div class="fields">
 									<div class="field">
 										<label for="name">Name</label>
@@ -79,29 +179,21 @@
 								<ul class="actions">
 									<li><input type="submit" value="Send Message" /></li>
 								</ul>
-							</form>
+							</form> -->
 						</section>
 						<section class="split contact">
 							<section class="alt">
-								<h3>Address</h3>
-								<p>1234 Somewhere Road #87257<br />
-								Nashville, TN 00000-0000</p>
-							</section>
-							<section>
 								<h3>Phone</h3>
-								<p><a href="#">(000) 000-0000</a></p>
+								<p>(918) 282-8006</a></p>
 							</section>
 							<section>
 								<h3>Email</h3>
-								<p><a href="#">info@untitled.tld</a></p>
+								<p>Zane.richardsjobs@gmail.com</a></p>
 							</section>
 							<section>
 								<h3>Social</h3>
 								<ul class="icons alt">
-									<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="https://github.com/Zane-Ri" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
 								</ul>
 							</section>
 						</section>
@@ -109,19 +201,19 @@
 
 				<!-- Copyright -->
 					<div id="copyright">
-						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+						<ul></ul>
 					</div>
 
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
 
 	</body>
 </html>

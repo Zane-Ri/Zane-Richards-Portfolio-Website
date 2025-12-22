@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>2.5A Sensored BLDC</title>
+		<title>2.5A Sensored BLDC | Zane Richards</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -15,49 +15,162 @@
 	<body class="is-preload">
 
 		<!-- Wrapper -->
-			<div id="wrapper">
+		<div id="wrapper">
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">Portfolio</a>
+			<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="logo">Portfolio</a>
+			</header>
+
+			<!-- Nav -->
+			<nav id="nav">
+				<ul class="links">
+					<li><a href="index.html">Overview</a></li>
+					<li class="active"><a href="H19R2x-Hardware.html">2.5A Sensored BLDC</a></li>
+					<li><a href="Overcurrent-Relay-Protection.html">Overcurrent Relay Protection</a></li>
+					<li><a href="index.html">Coming soon</a></li>
+					<li><a href="index.html">Coming soon</a></li>
+					<li><a href="index.html">Coming soon</a></li>
+					<li><a href="elements.html">Elements Reference</a></li>
+				</ul>
+				<ul class="icons">
+					<li><a href="https://github.com/Zane-Ri" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+				</ul>
+			</nav>
+
+			<!-- Main -->
+			<div id="main">
+
+				<!-- Post -->
+				<section class="post">
+					<header class="major">
+						<span class="date">Dec 2025</span>
+						<h1>2.5A Sensored BLDC Control Module</h1>
+						<p>
+							Designed a compact 2.5A sensored BLDC control module using an <strong>STM32G0B1CEU6</strong> and
+							<strong>DRV8313PWPR</strong> for PWM commutation. Separated analog/digital/motor power domains with
+							ferrite-bead isolation and tight decoupling, and routed controlled high-current paths validated with DRC.
+						</p>
 					</header>
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul class="links">
-							<li><a href="index.html">This is Massively</a></li>
-							<li class="active"><a href="H19R2x-Hardware.html">2.5A Sensored BLDC</a></li>
-							<li><a href="elements.html">Elements Reference</a></li>
+					<!-- HERO IMAGE (PCBA or module render) -->
+					<span class="image main">
+						<img src="images/pic01.png" alt="2.5A Sensored BLDC module PCBA (hero image)" />
+					</span>
+					<p><em>Figure 0.</em> PCBA hero image.</p>
+
+					<!-- QUICK SPECS / SUMMARY -->
+					<div class="box">
+						<h2>Quick Specs</h2>
+						<ul class="alt">
+							<li><strong>Motor Driver:</strong> TI DRV8313PWPR (3-phase BLDC driver)</li>
+							<li><strong>MCU:</strong> STM32G0B1CEU6 (control + commutation logic)</li>
+							<li><strong>Current Target:</strong> 2.5A class module (layout + power stage sized accordingly)</li>
+							<li><strong>Outputs:</strong> OUT1 / OUT2 / OUT3 to 3-phase motor connector</li>
+							<li><strong>Protection/Status:</strong> N_FAULT, N_COMPO monitoring + comparator/protection network</li>
+							<li><strong>Power Integrity:</strong> analog/digital separation with ferrite isolation + local decoupling</li>
 						</ul>
-						<ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-						</ul>
-					</nav>
-
-				<!-- Main -->
-					<div id="main">
-
-						<!-- Post -->
-							<section class="post">
-								<header class="major">
-									<span class="date">April 25, 2017</span>
-									<h1>2.5A Sensored BLDC</h1>
-									<p>Intro</p>
-								</header>
-								<div class="image main"><img src="images/pic01.jpg" alt="" /></div>
-								<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur sapien risus, commodo eget turpis at, elementum convallis enim turpis, lorem ipsum dolor sit amet nullam.</p>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus. Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum.</p>
-							</section>
-
 					</div>
 
-				<!-- Footer -->
+					<h2>Project Overview</h2>
+					<p>
+						This module is split into a <strong>backend (control + interfaces)</strong> and a <strong>frontend (power stage + motor drive)</strong>
+						to keep high di/dt switching currents away from sensitive logic and reference circuitry. The PCB layout prioritizes
+						short high-current loops, tight decoupling placement, and clean separation of analog/digital domains for stable sensing
+						and robust commutation in a noisy motor environment.
+					</p>
+
+					<!-- BACKEND SCHEMATIC -->
+					<h2>Backend Schematic (Control + Interfaces)</h2>
+					<span class="image fit">
+						<img src="images/PCB-class/backend_pcb.png" alt="Backend schematic: STM32G0B1 control, programming header, and power-domain isolation" />
+					</span>
+					<p><em>Figure 1.</em> Backend schematic — STM32G0B1 control, programming header, and power-domain isolation.</p>
+
+					<h3>Control + Signal Mapping</h3>
+					<p>
+						The backend centers around the <strong>STM32G0B1</strong> and maps commutation control directly to the driver.
+						The MCU drives <strong>IN1–IN3</strong> and <strong>EN1–EN3</strong> for phase control and PWM commutation,
+						while driver status returns through <strong>N_FAULT</strong> and <strong>N_COMPO</strong> for protection handling
+						and system diagnostics.
+					</p>
+
+					<h3>Bring-Up / Programming Header</h3>
+					<p>
+						A compact programming/debug header exposes <strong>CLK_BOOT</strong>, <strong>DATA</strong>, and <strong>NRST</strong>.
+						The BOOT strap resistor and NRST conditioning capacitor support reliable firmware loading and reset behavior during early bring-up.
+					</p>
+
+					<h3>Power Domain Isolation</h3>
+					<p>
+						To protect analog measurements and reduce injected switching noise, <strong>VDD</strong> is filtered into <strong>VDDA</strong>
+						through ferrite isolation with dedicated high-frequency and bulk decoupling. A separate reference coupling network stabilizes
+						the MCU’s analog reference behavior under PWM switching conditions.
+					</p>
+
+					<!-- FRONTEND SCHEMATIC -->
+					<h2>Frontend Schematic (Motor Driver + Power Integrity)</h2>
+					<span class="image fit">
+						<img src="images/PCB-class/Frontend_pcb.png" alt="Frontend schematic: DRV8313 power stage, VM decoupling, protection pins, and motor/power connectors" />
+					</span>
+					<p><em>Figure 2.</em> Frontend schematic — DRV8313 power stage, VM decoupling, protection pins, and motor/power connectors.</p>
+
+					<h3>Power Stage + Connectors</h3>
+					<p>
+						The frontend uses the <strong>DRV8313</strong> to drive <strong>OUT1/OUT2/OUT3</strong> to a dedicated motor connector.
+						Motor power (<strong>Vm</strong>) is brought in through a separate power connector, and the VM rail is supported by both bulk and
+						high-frequency decoupling placed close to the driver pins to minimize loop area and reduce ringing/voltage droop.
+					</p>
+
+					<h3>Protection + Monitoring</h3>
+					<p>
+						The design integrates driver monitoring and protection features using <strong>FAULT/COMPO</strong> signaling and a
+						<strong>COMPN/COMPP</strong> conditioning network to support configurable protection behavior (e.g., current limit / comparator thresholding).
+						Pull-ups ensure clean logic-level reporting to the MCU for fault response and telemetry.
+					</p>
+
+					<h2>PCB Layout and Verification</h2>
+					<p>
+						The PCB implementation was driven by two requirements: <strong>robust high-current switching</strong> and <strong>stable control/sensing</strong>.
+						High-current nets were treated as a distinct routing class with tight constraints, while sensitive logic/analog paths were kept away from
+						switching nodes and return currents.
+					</p>
+
+					<ul>
+						<li><strong>High-current routing:</strong> short, wide copper for Vm/phase outputs/returns; minimized loop area.</li>
+						<li><strong>Decoupling strategy:</strong> tight placement near driver/MCU supply pins to control di/dt noise at the source.</li>
+						<li><strong>Domain separation:</strong> analog/digital partitioning with ferrite isolation and controlled grounding strategy.</li>
+						<li><strong>Verification:</strong> connectivity, spacing, and current-path constraints validated using <strong>Altium DRC</strong>.</li>
+					</ul>
+
+					<!-- PCBA IMAGE -->
+					<h2>Assembled PCBA</h2>
+					<span class="image fit">
+						<img src="images/pic01.png" alt="Assembled BLDC control module PCBA (top and bottom views)" />
+					</span>
+					<p><em>Figure 3.</em> PCBA photo(s) — top/bottom views highlighting driver placement, decoupling, and high-current copper.</p>
+
+					<!-- BRING-UP -->
+					<h2>Bring-Up & Test Plan</h2>
+					<ol>
+						<li>Power-up with bench supply current limit; verify <strong>VDD/VDDA</strong> rails and reset behavior.</li>
+						<li>Program the MCU; validate GPIO/PWM patterns on <strong>ENx/INx</strong> lines.</li>
+						<li>Spin motor unloaded at low duty; scope phase nodes and monitor <strong>N_FAULT/N_COMPO</strong>.</li>
+						<li>Increase load/current while checking thermals, VM ripple, and protection response.</li>
+					</ol>
+
+					<hr />
+
+
+
+				</section>
+
+			</div>
+
+			<!-- Footer -->
 					<footer id="footer">
 						<section>
-							<form method="post" action="#">
+							<!-- <form method="post" action="#">
 								<div class="fields">
 									<div class="field">
 										<label for="name">Name</label>
@@ -75,29 +188,21 @@
 								<ul class="actions">
 									<li><input type="submit" value="Send Message" /></li>
 								</ul>
-							</form>
+							</form> -->
 						</section>
 						<section class="split contact">
 							<section class="alt">
-								<h3>Address</h3>
-								<p>1234 Somewhere Road #87257<br />
-								Nashville, TN 00000-0000</p>
-							</section>
-							<section>
 								<h3>Phone</h3>
-								<p><a href="#">(000) 000-0000</a></p>
+								<p>(918) 282-8006</a></p>
 							</section>
 							<section>
 								<h3>Email</h3>
-								<p><a href="#">info@untitled.tld</a></p>
+								<p>Zane.richardsjobs@gmail.com</a></p>
 							</section>
 							<section>
 								<h3>Social</h3>
 								<ul class="icons alt">
-									<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="https://github.com/Zane-Ri" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
 								</ul>
 							</section>
 						</section>
@@ -105,19 +210,19 @@
 
 				<!-- Copyright -->
 					<div id="copyright">
-						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+						<ul></ul>
 					</div>
 
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
 
 	</body>
 </html>
