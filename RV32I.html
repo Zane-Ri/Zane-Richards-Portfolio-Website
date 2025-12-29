@@ -1,0 +1,303 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>RV32I Pipelined SoC (Zybo Z7) | Zane Richards</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="logo">Portfolio</a>
+			</header>
+
+			<!-- Nav -->
+			<nav id="nav">
+				<ul class="links">
+					<li class="active"><a href="RV32I.html">RV32I</a></li>
+					<li><a href="H19R2x-Hardware.html">2.5A Sensored BLDC</a></li>
+					<li><a href="Overcurrent-Relay-Protection.html">Overcurrent Relay Protection</a></li>
+					<li><a href="Blinky.html">Blinky</a></li>
+					<!-- <li><a href="index.html">Coming soon</a></li> -->
+				</ul>
+				<ul class="icons">
+					<li><a href="https://github.com/Zane-Ri" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+				</ul>
+			</nav>
+
+			<!-- Main -->
+			<div id="main">
+
+				<!-- Post -->
+				<section class="post">
+					<header class="major">
+						<span class="date">Dec 28, 2025</span>
+						<h1>RV32I Pipelined SoC on Zybo Z7</h1>
+
+						<p>
+							This project was an end-to-end implementation of a small RISC-V RV32I SoC in SystemVerilog, taken from
+							individual modules through full FPGA bring-up on a Zybo Z7. The focus was building a clean pipeline
+							incrementally, proving each subsystem in simulation, and then integrating memory + MMIO with predictable
+							1-cycle timing so software bring-up was repeatable instead of “trial and hope.”
+						</p>
+					</header>
+
+					<!-- HERO IMAGE -->
+					<span class="image main">
+						<!-- TODO: add your own hero image (block diagram, FPGA photo, or terminal UART screenshot) -->
+						<img src="images/rv32i/hero.png" alt="RV32I SoC hero image (block diagram / board photo / UART output)" />
+					</span>
+					<p><em>Figure 0.</em> Project hero image (block diagram / Zybo photo / UART output screenshot).</p>
+
+					<!-- QUICK SPECS / SUMMARY -->
+					<div class="box">
+						<h2>Quick Specs</h2>
+						<ul class="alt">
+							<li>ISA — RISC-V RV32I</li>
+							<li>Pipeline — IF/ID/EX/MEM/WB with forwarding, load-use stall, and redirect flush</li>
+							<li>Memory — dual-port BRAM (Port A instruction, Port B data with byte strobes)</li>
+							<li>Boot — program image loaded from <code>prog.hex</code> via <code>$readmemh</code></li>
+							<li>Peripherals — MMIO UART TX + MMIO LED GPIO</li>
+							<li>Board I/O — 125 MHz clock, BTN reset, 4 LEDs, UART TX on PMOD pin</li>
+						</ul>
+					</div>
+
+					<h2>Implementation Process</h2>
+					<p>
+						The build was intentionally staged so each layer could be validated before moving on. The overall pattern was:
+						implement a minimal version, write a tiny test to break it, fix timing/edge cases, then integrate the next block.
+						The “definition of done” for each step was: deterministic waveforms in simulation and a simple hardware check on the Zybo.
+					</p>
+
+					<div class="box">
+						<h3>Milestones</h3>
+						<ol>
+							<li>Bring up a minimal datapath: regfile + ALU + decoder producing stable control.</li>
+							<li>Stand up pipeline registers and run a small instruction subset with NOP padding.</li>
+							<li>Add hazards in the practical order: forwarding first, then load-use stall, then redirect flush.</li>
+							<li>Integrate BRAM with a strict 1-cycle model and confirm loads/stores against a test program.</li>
+							<li>Integrate MMIO using the same timing model as BRAM so core assumptions stay consistent.</li>
+							<li>Close the loop on FPGA: constraints, bitstream, UART prints, LED writes, then deeper tests.</li>
+						</ol>
+					</div>
+
+					<hr />
+
+					<h2>Core Bring-Up: From Simple to Pipelined</h2>
+					<p>
+						The core started as simple building blocks (decoder, regfile, ALU) verified in isolation. Once those were stable,
+						the pipeline registers were introduced and the CPU was run with conservative assumptions first (known-good NOPs
+						between dependent instructions). That created a baseline where “the pipeline works” before adding hazard complexity.
+					</p>
+
+					<h3>Hazards and Control Flow (Implemented Incrementally)</h3>
+					<ul>
+						<li>Forwarding was added first to eliminate obvious RAW hazards without slowing everything down.</li>
+						<li>A 1-cycle load-use stall was then implemented for the one case forwarding cannot solve.</li>
+						<li>Redirect + flush was added after that, with branch/jump decisions resolved in EX and bubbles injected upstream.</li>
+					</ul>
+
+					<p>
+						Once hazards were in place, I shifted effort into verification by writing small “trap” programs that intentionally
+						trigger each hazard. The goal was not just correctness, but predictability: the same program should produce the same
+						writebacks and memory side effects every run.
+					</p>
+
+					<hr />
+
+					<h2>Memory System Implementation (1-Cycle BRAM Model)</h2>
+					<p>
+						Instead of treating memory as combinational (which rarely matches FPGA reality), BRAM was implemented with registered
+						addressing and a consistent 1-cycle read response. This forced the core to behave like it would on actual FPGA memory
+						and prevented a common failure mode where simulation “works” but hardware breaks.
+					</p>
+
+					<ul>
+						<li>Port A was dedicated to instruction fetch to keep timing simple and stable.</li>
+						<li>Port B handled data loads/stores with byte strobes, enabling SB/SH/SW behavior.</li>
+						<li>Program loading used <code>$readmemh</code> so early bring-up could run real software immediately.</li>
+					</ul>
+
+					<span class="image fit">
+						<!-- TODO: add your own architecture diagram -->
+						<img src="images/rv32i/arch.png" alt="RV32I SoC block diagram: core, BRAM, MMIO (UART/LED), address decode" />
+					</span>
+					<p><em>Figure 1.</em> System integration view (core ↔ BRAM/MMIO via address decode).</p>
+
+					<hr />
+
+					<h2>MMIO Integration (Matched to BRAM Timing)</h2>
+					<p>
+						MMIO was implemented to behave like BRAM from the core’s perspective. Requests are registered, and read data is
+						computed combinationally from the registered request. That decision avoids a “two timing models” situation where RAM
+						loads behave one way and MMIO loads behave another, which makes software bring-up painful.
+					</p>
+
+					<div class="box">
+						<h3>MMIO Address Map</h3>
+						<div class="table-wrapper">
+							<table class="alt">
+								<thead>
+									<tr>
+										<th>Address</th>
+										<th>Register</th>
+										<th>Access</th>
+										<th>Notes</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><code>0x1000_0000</code></td>
+										<td>UART_TX</td>
+										<td>W</td>
+										<td>Write <code>[7:0]</code> to transmit when ready.</td>
+									</tr>
+									<tr>
+										<td><code>0x1000_0004</code></td>
+										<td>UART_STAT</td>
+										<td>R</td>
+										<td><code>[0]</code> returns ready status for polling.</td>
+									</tr>
+									<tr>
+										<td><code>0x2000_0000</code></td>
+										<td>LED</td>
+										<td>W</td>
+										<td>Write <code>[3:0]</code> to drive the user LEDs.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<hr />
+
+					<h2>UART TX Implementation and Debug</h2>
+					<p>
+						The UART transmitter was built as a small, parameterized module with a divider derived from <code>CLK_HZ</code> and
+						<code>BAUD</code>. I verified framing in simulation first (start bit, 8 data bits, stop bit), then used the Zybo
+						hardware to validate end-to-end output by printing short strings and confirming timing at 115200.
+					</p>
+
+					<ul>
+						<li>Kept the interface simple: start pulse + data, plus a ready flag.</li>
+						<li>Generated the start pulse only when the transmitter is ready, to avoid overruns.</li>
+						<li>Used polling via UART_STAT during early software bring-up to keep control simple.</li>
+					</ul>
+
+					<span class="image fit">
+						<!-- TODO: add terminal screenshot or waveform -->
+						<img src="images/rv32i/uart.png" alt="UART output or waveform capture" />
+					</span>
+					<p><em>Figure 2.</em> UART output / TX waveform capture (optional).</p>
+
+					<hr />
+
+					<h2>Top-Level Integration (Address Decode + Return Data Alignment)</h2>
+					<p>
+						The SoC wrapper was treated as an engineering project on its own: make address decode obvious, keep the interface to the
+						core stable, and guarantee readback alignment. The key detail here is that return data selection uses registered selects
+						so both RAM and MMIO read paths line up with the pipeline’s expectations.
+					</p>
+
+					<ul>
+						<li>Decode RAM vs MMIO based on address region.</li>
+						<li>Register the selected target so read data returns on a consistent cycle.</li>
+						<li>Keep instruction fetch isolated from data accesses to reduce integration coupling.</li>
+					</ul>
+
+					<hr />
+
+					<h2>FPGA Bring-Up (Constraints, Timing, First Light)</h2>
+					<p>
+						Hardware bring-up started with the smallest possible proof: LEDs and UART. Once those worked, I expanded into memory
+						tests and hazard-triggering instruction sequences. This kept debugging grounded in observable signals instead of guessing.
+					</p>
+
+					<div class="box">
+						<h3>Bring-Up Checklist</h3>
+						<ol>
+							<li>Confirm the clock constraint matches the board clock (expected 125 MHz).</li>
+							<li>Program FPGA and validate reset behavior (BTN reset, clean startup state).</li>
+							<li>Run a UART “hello world” by polling UART_STAT and writing UART_TX.</li>
+							<li>Write a simple LED pattern through the MMIO LED register.</li>
+							<li>Run RAM read/write tests (bytes/halfwords/words) to validate strobes and packing.</li>
+							<li>Run hazard tests (forwarding, load-use stall, redirect flush) and compare expected vs observed output.</li>
+						</ol>
+					</div>
+
+					<hr />
+
+					<h2>Demo Ideas</h2>
+					<ul>
+						<li>UART boot banner with a short self-test summary.</li>
+						<li>LED counter driven by memory-mapped writes.</li>
+						<li>Waveform capture of UART TX showing correct start/data/stop framing.</li>
+						<li>Short “hazard demo” program that prints pass/fail per case.</li>
+					</ul>
+
+					<span class="image fit">
+						<!-- TODO: add video thumbnail or scope capture -->
+						<img src="images/rv32i/demo.png" alt="Demo media placeholder (video thumbnail / scope / terminal)" />
+					</span>
+					<p><em>Figure 3.</em> Demo media placeholder (UART terminal / scope capture / short video).</p>
+
+					<hr />
+
+			
+
+			<ul class="actions">
+						<li><a href="https://github.com/Zane-Ri/FPGA-Based-RISC-V-CPU" class="button">View Source / Repo</a></li>
+					</ul>
+
+				</div>
+			<!-- Footer -->
+			<footer id="footer">
+				<section></section>
+				<section class="split contact">
+					<section class="alt">
+						<h3>Phone</h3>
+						<p>(918) 282-8006</p>
+					</section>
+					<section>
+						<h3>Email</h3>
+						<p>Zane.richardsjobs@gmail.com</p>
+					</section>
+					<section>
+						<h3>Social</h3>
+						<ul class="icons alt">
+							<li><a href="https://github.com/Zane-Ri" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</section>
+				</section>
+			</footer>
+
+			<!-- Copyright -->
+			<div id="copyright">
+				<ul></ul>
+			</div>
+
+		</div>
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
+
